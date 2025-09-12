@@ -12,9 +12,9 @@ const setAuthCookie = (res, token) => {
   const isProd = process.env.NODE_ENV === 'production';
   res.cookie('token', token, {
     httpOnly: true,
-    secure: isProd,       // HTTPS in produce
-    sameSite: isProd ? 'none' : 'lax', // 'none' for cross-site
-    maxAge: 24 * 60 * 60 * 1000
+    secure: isProd,          // true in prod (HTTPS)
+    sameSite: isProd ? 'none' : 'lax',
+    maxAge: 24 * 60 * 60 * 1000, // 1 day
   });
 };
 
@@ -82,4 +82,3 @@ exports.me = async (req, res) => {
   const user = req.user; // put by middleware
   res.json({ user: { id: user._id, username: user.username, email: user.email } });
 };
-
