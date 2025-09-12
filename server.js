@@ -11,9 +11,21 @@ connectDB();
 
 app.use(express.json());
 app.use(cookieParser());
+
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://d00055a.github.io'
+];
+
 app.use(cors({
-  origin: 'https://d00055a.github.io',
-  credentials: true,
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
 }));
 
 app.get("/health", (req, res) => res.json({ ok: true }));
@@ -30,4 +42,3 @@ app.use((err, req, res, next) => {
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Server running on port ${port}`));
-
