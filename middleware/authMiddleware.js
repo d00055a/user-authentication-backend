@@ -10,7 +10,7 @@ module.exports = async (req, res, next) => {
     if (!token && req.headers.authorization?.startsWith("Bearer ")) {
       token = req.headers.authorization.split(' ')[1];
     }
-    if (!token) return res.status(401).json({ error: "You are not authenticated." });
+    if (!token) return res.status(401).json({ error: "Session expired. Please log in again." });
 
     const payload = jwt.verify(token, process.env.JWT_SECRET);
     const user = await User.findById(payload.sub).select("-password");
@@ -22,3 +22,4 @@ module.exports = async (req, res, next) => {
     return res.status(401).json({ error: "Invalid or expired token!" });
   }
 };
+
