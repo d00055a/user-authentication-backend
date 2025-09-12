@@ -25,6 +25,11 @@ exports.register = async (req, res, next) => {
     if (!username || !email || !password)
       return res.status(400).json({ error: "All the fields should be filled in!" });
 
+     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+     if (!emailRegex.test(email)) {
+     return res.status(400).json({ error: 'Invalid email format' });
+    }
+
     const exists = await User.findOne({ $or: [{ email }, { username }] });
     if (exists) return res.status(409).json({ error: "This email/username is already registered." });
 
@@ -82,3 +87,4 @@ exports.me = async (req, res) => {
   const user = req.user; // put by middleware
   res.json({ user: { id: user._id, username: user.username, email: user.email } });
 };
+
