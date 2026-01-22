@@ -49,7 +49,7 @@ cd user-authentication-backend
 npm install
 ```
 
-- Create a .env file:
+- Create a **.env** file:
 
 ```Env
 PORT=4000
