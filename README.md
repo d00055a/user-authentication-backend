@@ -40,7 +40,7 @@ It provides secure authentication and authorization using JWT, handles user data
 - Passwords are hashed using bcrypt
 - JWT is generated and stored in an httpOnly cookie
 - Protected routes verify authentication using the JWT
-- 
+
 ## Run Locally
 
 ```bash
