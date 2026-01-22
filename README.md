@@ -61,6 +61,7 @@ JWT_SECRET=your_jwt_secret
 ```bash
 npm run dev
 ```
+
 ## Deployment
 
 The backend is deployed on Render and connected to the frontend via REST API.
